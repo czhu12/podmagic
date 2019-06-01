@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Asap:400,700');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font: 1.5rem 'Asap', sans-serif;
+}
+
+.no-select {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.current-word {
+  color: #d35400;
+  font-weight: bold;
+}
