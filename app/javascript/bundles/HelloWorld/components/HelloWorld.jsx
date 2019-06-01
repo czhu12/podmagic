@@ -29,7 +29,7 @@ const HelloWorld = ({
 		<div className="wrapper">
 			<h1>Highlight Within Textarea v2</h1>
       <ContentEditable
-        html={wordsArray.join(' ')}
+        html={wordsArray.join(' ').replace(/(\S+)/gm, '<span>$1</span>')}
         className='no-select'
         disabled={false}       // use true to disable editing
         onKeyDown={onDeleteEditableHtml} // handle innerHTML change

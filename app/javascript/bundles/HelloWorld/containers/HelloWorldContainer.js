@@ -24,9 +24,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onDeleteEditableHtml: (e) => {
     if (e.keyCode === 8 || e.keyCode === 46) { // if backspace or delete is clicked
+      e.preventDefault();
+      e.stopPropagation();
       const selection = window.getSelection();
-      const baseIndex = $(window.getSelection().baseNode.parentNode).data('index');
-      const focusIndex = $(window.getSelection().focusNode.parentNode).data('index');
+      const baseIndex = $(window.getSelection().anchorNode.parentNode).index();
+      const focusIndex = $(window.getSelection().focusNode.parentNode).index();;
       const startIndex = Math.min(baseIndex, focusIndex);
       const endIndex = Math.max(baseIndex, focusIndex);
       dispatch(actions.onDeleteEditableHtml(startIndex, endIndex))
