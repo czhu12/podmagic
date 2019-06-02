@@ -7,6 +7,7 @@ import {
   ON_COPY_EDITABLE_HTML,
   ON_PASTE_EDITABLE_HTML,
   ON_DELETE_EDITABLE_HTML,
+  AUDIO_CONTROLS_TOGGLE_PLAY,
 } from '../constants/helloWorldConstants';
 
 export const updateName = (name) => ({
@@ -34,3 +35,5 @@ export const onDeleteEditableHtml = (startIndex, endIndex) => ({
   startIndex, 
   endIndex,
 });
+
+export const togglePlay = () => ({ type: AUDIO_CONTROLS_TOGGLE_PLAY });

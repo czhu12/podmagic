@@ -7,6 +7,7 @@ import * as actions from '../actions/helloWorldActionCreators';
 // Which part of the Redux global state does our component want to receive as props?
 const mapStateToProps = (state) => ({
   audioPlayer: state.audioPlayer,
+  audioControls: state.audioControls,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -24,12 +25,14 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onDeleteEditableHtml: (e) => {
     if (e.keyCode === 8 || e.keyCode === 46) { // if backspace or delete is clicked
-      const selection = window.getSelection();
-      const baseIndex = $(window.getSelection().baseNode.parentNode).data('index');
-      const focusIndex = $(window.getSelection().focusNode.parentNode).data('index');
-      const startIndex = Math.min(baseIndex, focusIndex);
-      const endIndex = Math.max(baseIndex, focusIndex);
+      let startIndex = document.getElementById("audio-editor-textarea").selectionStart;
+      let endIndex = document.getElementById("audio-editor-textarea").selectionEnd;
       dispatch(actions.onDeleteEditableHtml(startIndex, endIndex))
+    }
+  },
+  audioControlActions: {
+    togglePlay: () => {
+      dispatch(actions.togglePlay())
     }
   }
 });

@@ -15,9 +15,9 @@ const HelloWorldApp = (props) => {
   const store = configureStore(props);
   let audioTime = 0;
   setInterval(() => {
-    audioTime += .5;
+    audioTime += .1;
     store.dispatch(updateAudioTime(audioTime));
-  }, 500)
+  }, 100)
   return (
     <Provider store={store}>
       <HelloWorldContainer />

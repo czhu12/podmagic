@@ -12,6 +12,7 @@
     "react-highlight-words": "^0.16.0",
     "react-on-rails": "11.3.0",
     "react-redux": "^7.0.3",
+    "react-sound": "^1.2.0",
     "redux": "^4.0.1"
   },
   "devDependencies": {
