@@ -3,7 +3,7 @@ import React from 'react';
 class AudioControls extends React.Component {
   render() {
     let audioControlView = null;
-    if (this.props.audioControls.playing) {
+    if (this.props.audioControls.isPlaying) {
       audioControlView = (
         <div>
           <span className="icon is-small">

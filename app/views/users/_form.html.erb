@@ -1,0 +1,44 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class='control has-icons-left'>
+      <%= form.text_field :email, id: :user_email, class: 'input', placeholder: 'Email Address' %>
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class='control has-icons-left'>
+      <%= form.password_field :password, id: :user_password, class: 'input', placeholder: 'Password' %>
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class='control has-icons-left'>
+      <%= form.password_field :password_confirmation, id: :user_password_confirmation, class: 'input', placeholder: 'Confirm Password' %>
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </div>
+  </div>
+
+  <div class="actions control">
+    <%= form.submit "Sign Up", class: "button is-primary is-fullwidth" %>
+  </div>
+<% end %>

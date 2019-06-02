@@ -1,19 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 
 import {
-  HELLO_WORLD_NAME_UPDATE,
   AUDIO_TIME_UPDATE,
   ON_CUT_EDITABLE_HTML,
   ON_COPY_EDITABLE_HTML,
   ON_PASTE_EDITABLE_HTML,
   ON_DELETE_EDITABLE_HTML,
   AUDIO_CONTROLS_TOGGLE_PLAY,
-} from '../constants/helloWorldConstants';
-
-export const updateName = (name) => ({
-  type: HELLO_WORLD_NAME_UPDATE,
-  name,
-});
+} from '../constants/audioTextEditorConstants';
 
 export const onCutEditableHtml = (html) => ({
   type: ON_CUT_EDITABLE_HTML,
@@ -34,6 +28,11 @@ export const onDeleteEditableHtml = (startIndex, endIndex) => ({
   type: ON_DELETE_EDITABLE_HTML,
   startIndex, 
   endIndex,
+});
+
+export const updateAudioTime = (audioTime) => ({
+  type: AUDIO_TIME_UPDATE,
+  audioTime,
 });
 
 export const togglePlay = () => ({ type: AUDIO_CONTROLS_TOGGLE_PLAY });

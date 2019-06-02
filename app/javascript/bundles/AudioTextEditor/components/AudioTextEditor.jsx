@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ContentEditable from 'react-contenteditable'
 import AudioControls from './AudioControls'
+import AudioPlayer from './AudioPlayer'
 
 const getUserAgent = () => {
   const ua = window.navigator.userAgent.toLowerCase();
@@ -67,6 +68,13 @@ class AudioTextEditor extends React.Component {
     const text = wordTimes.map(wordTime => wordTime['word']).join(' ');
     return (
       <div>
+        <AudioPlayer
+          source="/demo-cut-mono.mp3"
+          isPlaying={this.props.audioControls.isPlaying}
+          onTimeUpdate={this.props.audioPlayerActions.onTimeUpdate}
+          onEnd={this.props.audioPlayerActions.onEnd}
+          onProgress={this.props.audioPlayerActions.onProgress}
+        />
         <div className="audio-container">
           <div className="backdrop" ref="backdrop">
             <div
@@ -98,6 +106,7 @@ AudioTextEditor.propTypes = {
   onDeleteEditableHtml: PropTypes.func.isRequired,
   audioControls: PropTypes.object.isRequired,
   audioControlActions: PropTypes.object.isRequired,
+  audioPlayerActions: PropTypes.object.isRequired,
 };
 
 export default AudioTextEditor;

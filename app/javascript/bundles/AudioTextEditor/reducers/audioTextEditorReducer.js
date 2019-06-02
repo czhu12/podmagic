@@ -7,7 +7,7 @@ import {
   ON_PASTE_EDITABLE_HTML,
   ON_DELETE_EDITABLE_HTML,
   AUDIO_CONTROLS_TOGGLE_PLAY,
-} from '../constants/helloWorldConstants';
+} from '../constants/audioTextEditorConstants';
 
 const isBetween = (current, start, end) => {
   return current >= start && current <= end;
@@ -29,13 +29,13 @@ const computeWordTimesDeletedFromCharRange = (startIndex, endIndex, wordTimes) =
 
 const audioControls = (
   state = {
-    playing: false,
+    isPlaying: false,
   },
   action,
 ) => {
   switch (action.type) {
     case AUDIO_CONTROLS_TOGGLE_PLAY:
-      return {...state, playing: !state.playing};
+      return {...state, isPlaying: !state.isPlaying};
     default:
       return state;
   }
@@ -64,6 +64,6 @@ const audioPlayer = (
   }
 };
 
-const helloWorldReducer = combineReducers({ audioPlayer, audioControls });
+const audioTextEditorReducer = combineReducers({ audioPlayer, audioControls });
 
-export default helloWorldReducer;
+export default audioTextEditorReducer;

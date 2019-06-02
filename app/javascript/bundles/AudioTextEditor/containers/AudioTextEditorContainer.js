@@ -1,8 +1,8 @@
 // Simple example of a React "smart" component
 
 import { connect } from 'react-redux';
-import HelloWorld from '../components/HelloWorld';
-import * as actions from '../actions/helloWorldActionCreators';
+import AudioTextEditor from '../components/AudioTextEditor';
+import * as actions from '../actions/audioTextEditorActionCreators';
 
 // Which part of the Redux global state does our component want to receive as props?
 const mapStateToProps = (state) => ({
@@ -30,14 +30,26 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(actions.onDeleteEditableHtml(startIndex, endIndex))
     }
   },
+  updateAudioTime: ({currentTime, trackDuration}) => {
+    dispatch(actions.updateAudioTime(currentTime));
+  },
   audioControlActions: {
     togglePlay: () => {
       dispatch(actions.togglePlay())
     }
+  },
+  audioPlayerActions: {
+    onTimeUpdate: ({ currentTime, trackDuration }) => {
+      dispatch(actions.updateAudioTime(currentTime));
+    },
+    onProgress: ({ trackDuration, buffered }) => {
+    },
+    onEnd: () => {
+    },
   }
 });
 
 // Don't forget to actually use connect!
-// Note that we don't export HelloWorld, but the redux "connected" version of it.
+// Note that we don't export AudioTextEditor, but the redux "connected" version of it.
 // See https://github.com/reactjs/react-redux/blob/master/docs/api.md#examples
-export default connect(mapStateToProps, mapDispatchToProps)(HelloWorld);
+export default connect(mapStateToProps, mapDispatchToProps)(AudioTextEditor);

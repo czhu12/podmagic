@@ -1,0 +1,31 @@
+<div id="authentication">
+  <div class="login-card">
+    <div class="card-title">
+      <h1>Login</h1>
+    </div>
+
+    <div class="content">
+      <%= form_tag sessions_path do |form| %>
+        <div class="field">
+          <div class="control has-icons-left">
+            <%= text_field_tag :email, "", class: 'input', placeholder: 'Email Address' %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control has-icons-left">
+            <%= password_field_tag :password, "", class: 'input', placeholder: 'Password' %>
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
+        </div>
+        <div class="actions control">
+          <%= submit_tag "Login", class: "button is-primary is-fullwidth" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
