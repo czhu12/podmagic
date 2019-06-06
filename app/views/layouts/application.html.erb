@@ -18,6 +18,37 @@
   </head>
 
   <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <i class="fas fa-hourglass-start" style="font-size:2em;"></i>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <% if current_user %>
+              <div class="buttons">
+                <%= link_to 'Log Out', logout_path, class: "button is-light" %>
+              </div>
+            <% else %>
+              <div class="buttons">
+                <%= link_to 'Sign Up', signup_path, class: "button is-primary" %>
+                <%= link_to 'Log In', login_path, class: "button is-light" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
     <%= yield %>
   </body>
 </html>

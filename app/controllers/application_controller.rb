@@ -9,4 +9,12 @@ class ApplicationController < ActionController::Base
       @current_user = nil
     end
   end
+
+  def authenticate
+    if current_user.nil?
+      redirect_to :login
+      return false
+    end
+    return true
+  end
 end
