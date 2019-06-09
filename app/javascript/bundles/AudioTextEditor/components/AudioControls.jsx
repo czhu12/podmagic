@@ -2,9 +2,9 @@ import React from 'react';
 
 class AudioControls extends React.Component {
   render() {
-    let audioControlView = null;
+    let playPauseView = null;
     if (this.props.audioControls.isPlaying) {
-      audioControlView = (
+      playPauseView = (
         <div>
           <span className="icon is-small">
             <i className="fas fa-pause"/>
@@ -13,7 +13,7 @@ class AudioControls extends React.Component {
         </div>
       );
     } else {
-      audioControlView = (
+      playPauseView = (
         <div>
           <span className="icon is-small">
             <i className="fas fa-play"/>
@@ -23,9 +23,19 @@ class AudioControls extends React.Component {
       );
     }
     return (
-      <a className="button" onClick={this.props.audioControlActions.togglePlay}>
-        {audioControlView}
-      </a>
+      <div className="m-t-sm">
+        <a className="button" onClick={this.props.audioControlActions.togglePlay}>
+          {playPauseView}
+        </a>
+        <a className="button is-pulled-right" onClick={this.props.audioControlActions.saveEdits}>
+          <div>
+            <span className="icon is-small">
+              <i className="fas fa-save"/>
+            </span>
+            <span>Save</span>
+          </div>
+        </a>
+      </div>
     );
   }
 }

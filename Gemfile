@@ -20,11 +20,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'activestorage'
 gem 'sidekiq'
-gem 'google-cloud-speech'
 gem 'rb-readline'
-
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'streamio-ffmpeg'
+gem 'google-cloud-speech'
+gem 'aws-sdk-s3', '~>1', require: false
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

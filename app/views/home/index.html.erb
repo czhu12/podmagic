@@ -1,6 +1,35 @@
-<%= form_with model: @media_file, local: true do |form| %>
-  <%= form.text_field :title, placeholder: "Title" %><br>
+<div class='container'>
+<% @media_files_to_display.each_slice(4).to_a.each do |media_files| %>
+  <div class='columns'>
+  <% media_files.each do |media_file| %>
+    <div class='column is-one-quarter'>
+      <div class='card equal-height m-t-md'>
+        <% if media_file.new_record? %>
+          <div class='card-content'>
+          <%= form_with model: media_file, local: true do |form| %>
+            <%= form.text_field :title, placeholder: 'Title', class: 'input' %><br>
 
-  <%= form.file_field :file, multiple: true %><br>
-  <%= form.submit "Upload", class: "button" %>
+            <%= form.file_field :audio_file, multiple: true %><br>
+            <%= form.submit 'Upload', class: 'button' %>
+          <% end %>
+          </div>
+        <% else %>
+          <div class='card-content'>
+            <div class='title is-5'>
+              <%= media_file.title %>
+            </div>
+            <div class='subtitle is-7'>
+              <%= readable_time_from_seconds 0 %> / <%= readable_time_from_seconds media_file.duration %>
+            </div>
+          </div>
+          <div class='card-footer'>
+            <a><i class='fas fa-play pointer m-r-sm'></i></a>
+            <a href=<%= media_file_url media_file %>><i class='far fa-edit pointer m-r-sm'></i></a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  </div>
 <% end %>
+</div>

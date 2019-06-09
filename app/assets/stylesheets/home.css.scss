@@ -1,0 +1,12 @@
+.equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.equal-height .card-content {
+  flex: auto;
+}
+.card-footer {
+  padding: 0.5rem 0 0.5rem 1.5rem ;
+}

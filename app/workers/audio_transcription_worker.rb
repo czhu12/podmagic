@@ -7,7 +7,7 @@ class AudioTranscriptionWorker
     if media_file.transcription
       Rails.logger.log("Media File #{media_file.id} has already been transcribed.")
     end
-    transcription = transcribe(media_file.file)
+    transcription = transcribe(media_file.audio_file)
     media_file.update(transcription: transcription)
   end
 
