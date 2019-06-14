@@ -69,7 +69,7 @@ class AudioTextEditor extends React.Component {
     return (
       <div>
         <AudioPlayer
-          source="/demo-cut-mono.mp3"
+          source={this.props.audioPlayer.audioSrc}
           isPlaying={this.props.audioControls.isPlaying}
           onTimeUpdate={this.props.audioPlayerActions.onTimeUpdate}
           onEnd={this.props.audioPlayerActions.onEnd}
@@ -87,8 +87,11 @@ class AudioTextEditor extends React.Component {
           <textarea
             id="audio-editor-textarea"
             ref="textarea"
-            onKeyDown={this.props.onDeleteEditableHtml}
+            onKeyDown={this.props.onDeleteAudioTextEditor}
             onScroll={this.handleScroll}
+            onCut={this.props.onCutAudioTextEditor}
+            onCopy={this.props.onCopyAudioTextEditor}
+            onPaste={this.props.onPasteAudioTextEditor}
             value={text}/>
         </div>
       
@@ -103,7 +106,7 @@ class AudioTextEditor extends React.Component {
 
 AudioTextEditor.propTypes = {
   audioPlayer: PropTypes.object.isRequired,
-  onDeleteEditableHtml: PropTypes.func.isRequired,
+  onDeleteAudioTextEditor: PropTypes.func.isRequired,
   audioControls: PropTypes.object.isRequired,
   audioControlActions: PropTypes.object.isRequired,
   audioPlayerActions: PropTypes.object.isRequired,

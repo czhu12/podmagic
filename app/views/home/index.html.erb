@@ -21,10 +21,16 @@
             <div class='subtitle is-7'>
               <%= readable_time_from_seconds 0 %> / <%= readable_time_from_seconds media_file.duration %>
             </div>
+            <div>
+              <audio controls src="/media/examples/t-rex-roar.mp3">
+                Your browser does not support the <code>audio</code> element.
+              </audio>
+
+            </div>
           </div>
           <div class='card-footer'>
-            <a><i class='fas fa-play pointer m-r-sm'></i></a>
             <a href=<%= media_file_url media_file %>><i class='far fa-edit pointer m-r-sm'></i></a>
+            <a rel="nofollow" data-method="delete" href="<%= media_file_url(media_file) %>"><i class="far fa-trash-alt"></i></a>
           </div>
         <% end %>
       </div>

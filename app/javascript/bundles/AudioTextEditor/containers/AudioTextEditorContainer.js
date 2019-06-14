@@ -11,23 +11,25 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCutEditableHtml: (e) => {
-    console.log('on cut');
-    dispatch(actions.onCutEditableHtml(e.target.value))
+  onCutAudioTextEditor: (e) => {
+    let startIndex = document.getElementById("audio-editor-textarea").selectionStart;
+    let endIndex = document.getElementById("audio-editor-textarea").selectionEnd;
+    dispatch(actions.onCutAudioTextEditor(startIndex, endIndex))
   },
-  onCopyEditableHtml: (e) => {
-    console.log('on copy');
-    dispatch(actions.onCopyEditableHtml(e.target.value))
+  onCopyAudioTextEditor: (e) => {
+    let startIndex = document.getElementById("audio-editor-textarea").selectionStart;
+    let endIndex = document.getElementById("audio-editor-textarea").selectionEnd;
+    dispatch(actions.onCopyAudioTextEditor(startIndex, endIndex))
   },
-  onPasteEditableHtml: (e) => {
-    console.log('on paste');
-    dispatch(actions.onPasteEditableHtml(e.target.value))
+  onPasteAudioTextEditor: (e) => {
+    let index = document.getElementById("audio-editor-textarea").selectionStart;
+    dispatch(actions.onPasteAudioTextEditor(index))
   },
-  onDeleteEditableHtml: (e) => {
+  onDeleteAudioTextEditor: (e) => {
     if (e.keyCode === 8 || e.keyCode === 46) { // if backspace or delete is clicked
       let startIndex = document.getElementById("audio-editor-textarea").selectionStart;
       let endIndex = document.getElementById("audio-editor-textarea").selectionEnd;
-      dispatch(actions.onDeleteEditableHtml(startIndex, endIndex))
+      dispatch(actions.onDeleteAudioTextEditor(startIndex, endIndex))
     }
   },
   updateAudioTime: ({currentTime, trackDuration}) => {

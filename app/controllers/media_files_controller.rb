@@ -4,12 +4,17 @@ class MediaFilesController < ApplicationController
 
   def create
     media_file = MediaFile.new(params.require(:media_file).permit(:title))
-    media_file.audio_file.attach(params[:media_file][:audio_file][0])
+    media_file.audio_file = params[:media_file][:audio_file][0]
     media_file.user = current_user
+
+    # First we need to encode into mono-cut-flac file.
     if media_file.save
       AudioTranscriptionWorker.perform_async(media_file_id: media_file.id)
       redirect_to media_file
     else
+      media_file.errors.each do |err|
+        puts err
+      end
       flash[:notice] = "Media file save failed."
       redirect_to root_url
     end
@@ -20,9 +25,17 @@ class MediaFilesController < ApplicationController
       audioPlayer: {
         wordTimes: JSON.dump(@media_file.transcription || []),
         audioTime: 0,
-        title: @media_file.title
+        title: @media_file.title,
+        audioSrc: @media_file.audio_file.url,
       }
     }
+  end
+
+  def destroy
+    if @media_file.destroy
+      flash[:notice] = "Deleted #{@media_file.title}"
+      redirect_to root_url
+    end
   end
 
   private

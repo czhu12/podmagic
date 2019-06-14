@@ -18,12 +18,12 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
-gem 'activestorage'
 gem 'sidekiq'
 gem 'rb-readline'
 gem 'streamio-ffmpeg'
 gem 'google-cloud-speech'
 gem 'aws-sdk-s3', '~>1', require: false
+gem 'carrierwave', '~> 1.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

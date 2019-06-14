@@ -49,6 +49,12 @@
       </div>
     </nav>
 
+    <% if flash[:notice] %>
+    <div class="notification is-danger has-text-centered" id="flash-notice">
+      <button class="delete"></button>
+      <%= flash[:notice] %>
+    </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

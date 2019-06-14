@@ -9,22 +9,24 @@ import {
   AUDIO_CONTROLS_TOGGLE_PLAY,
 } from '../constants/audioTextEditorConstants';
 
-export const onCutEditableHtml = (html) => ({
+export const onCutAudioTextEditor = (startIndex, endIndex) => ({
+  startIndex,
+  endIndex,
   type: ON_CUT_EDITABLE_HTML,
-  html,
 });
 
-export const onCopyEditableHtml = (html) => ({
+export const onCopyAudioTextEditor = (startIndex, endIndex) => ({
+  startIndex,
+  endIndex,
   type: ON_COPY_EDITABLE_HTML,
-  html,
 });
 
-export const onPasteEditableHtml = (html) => ({
+export const onPasteAudioTextEditor = (index) => ({
+  index,
   type: ON_PASTE_EDITABLE_HTML,
-  html,
 });
 
-export const onDeleteEditableHtml = (startIndex, endIndex) => ({
+export const onDeleteAudioTextEditor = (startIndex, endIndex) => ({
   type: ON_DELETE_EDITABLE_HTML,
   startIndex, 
   endIndex,
