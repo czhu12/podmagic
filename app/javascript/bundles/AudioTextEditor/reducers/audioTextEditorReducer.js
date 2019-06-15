@@ -6,6 +6,11 @@ import {
   ON_PASTE_EDITABLE_HTML,
   ON_DELETE_EDITABLE_HTML,
   AUDIO_CONTROLS_TOGGLE_PLAY,
+  AUDIO_CONTROLS_SAVE,
+
+  REQUEST_SAVE_AUDIO_TEXT,
+  REQUEST_SAVE_AUDIO_TEXT_SUCCESS,
+  REQUEST_SAVE_AUDIO_TEXT_FAILED,
 } from '../constants/audioTextEditorConstants';
 
 const isBetween = (current, start, end) => {
@@ -60,12 +65,19 @@ const wordTimesDeletedFromCharRange = (startIndex, endIndex, wordTimes) => {
 const audioControls = (
   state = {
     isPlaying: false,
+    saving: false,
   },
   action,
 ) => {
   switch (action.type) {
     case AUDIO_CONTROLS_TOGGLE_PLAY:
       return {...state, isPlaying: !state.isPlaying};
+    case REQUEST_SAVE_AUDIO_TEXT:
+      return {...state, saving: true};
+    case REQUEST_SAVE_AUDIO_TEXT_SUCCESS:
+      return {...state, saving: false};
+    case REQUEST_SAVE_AUDIO_TEXT_FAILED:
+      return {...state, saving: false};
     default:
       return state;
   }
@@ -73,6 +85,7 @@ const audioControls = (
 
 const audioPlayer = (
   state = {
+    id: null,
     title: '',
     audioSrc: null,
     wordTimes: [],

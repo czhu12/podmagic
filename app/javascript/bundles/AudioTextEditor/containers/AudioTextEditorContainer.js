@@ -37,8 +37,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   audioControlActions: {
     togglePlay: () => {
-      dispatch(actions.togglePlay())
-    }
+      dispatch(actions.togglePlay());
+    },
+    saveEdits: () => {
+      dispatch(actions.saveEdits());
+    },
   },
   audioPlayerActions: {
     onTimeUpdate: ({ currentTime, trackDuration }) => {

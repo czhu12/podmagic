@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get 'audio_text_editor', to: 'audio_text_editor#index'
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :media_files
+  resources :media_files, only: [:create, :destroy, :show] do
+    resources :transcription_edits, only: [:create]
+  end
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'

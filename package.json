@@ -13,7 +13,8 @@
     "react-on-rails": "11.3.0",
     "react-redux": "^7.0.3",
     "react-sound": "^1.2.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.4.1"

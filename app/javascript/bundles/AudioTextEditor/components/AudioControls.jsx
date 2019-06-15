@@ -22,11 +22,20 @@ class AudioControls extends React.Component {
         </div>
       );
     }
-    return (
-      <div className="m-t-sm">
-        <a className="button" onClick={this.props.audioControlActions.togglePlay}>
-          {playPauseView}
+    let savingButtonView = null;
+    if (this.props.audioControls.saving) {
+      savingButtonView = (
+        <a className="button is-pulled-right" disabled>
+          <div>
+            <span className="icon is-small">
+              <i className="fas fa-spinner"/>
+            </span>
+            <span>Save</span>
+          </div>
         </a>
+      )
+    } else {
+      savingButtonView = (
         <a className="button is-pulled-right" onClick={this.props.audioControlActions.saveEdits}>
           <div>
             <span className="icon is-small">
@@ -35,6 +44,14 @@ class AudioControls extends React.Component {
             <span>Save</span>
           </div>
         </a>
+      )
+    }
+    return (
+      <div className="m-t-sm">
+        <a className="button" onClick={this.props.audioControlActions.togglePlay}>
+          {playPauseView}
+        </a>
+        {savingButtonView}
       </div>
     );
   }
