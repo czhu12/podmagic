@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import AudioTextEditor from '../components/AudioTextEditor';
 import * as actions from '../actions/audioTextEditorActionCreators';
 
+
 // Which part of the Redux global state does our component want to receive as props?
 const mapStateToProps = (state) => ({
   audioPlayer: state.audioPlayer,

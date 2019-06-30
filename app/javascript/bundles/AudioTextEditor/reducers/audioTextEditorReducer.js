@@ -11,11 +11,9 @@ import {
   REQUEST_SAVE_AUDIO_TEXT,
   REQUEST_SAVE_AUDIO_TEXT_SUCCESS,
   REQUEST_SAVE_AUDIO_TEXT_FAILED,
+  EDIT_GAP_TIMES,
 } from '../constants/audioTextEditorConstants';
-
-const isBetween = (current, start, end) => {
-  return current >= start && current <= end;
-}
+import { isBetween } from '../utils';
 
 const insertWordTimesAtCharIndex = (pasteIndex, wordTimes, wordTimesToInsert) => {
   // This is an invalid action if the paste position is not at a word boundary
@@ -97,6 +95,7 @@ const audioPlayer = (
 ) => {
   switch (action.type) {
     case AUDIO_TIME_UPDATE:
+      // We need to calculate if this time needs to jump.
       return {...state, audioTime: action.audioTime};
     case ON_DELETE_EDITABLE_HTML:
       return {
