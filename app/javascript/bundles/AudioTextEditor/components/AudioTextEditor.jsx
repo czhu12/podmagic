@@ -5,16 +5,29 @@ import ContentEditable from 'react-contenteditable'
 
 import AudioControls from './AudioControls'
 import AudioPlayer from './AudioPlayer'
-import { isIE, isIOS } from '../utils';
+import { isIE, isIOS, isBetween } from '../utils';
+import {
+  findContiguousWordSpans,
+  findSpanIndex,
+  findSpanIndexOfWordTime,
+} from '../utils/audioTimeManager';
 
-const highlightCurrentWord = (wordTimes, currentTime) => {
-  let text = wordTimes.map(wordTime => {
-    //if (isBetween(currentTime, wordTime['start_time'], wordTime['end_time'])) {
-    //  return '<mark>' + wordTime['word'] + '</mark>';
-    //}
+const highlightCurrentWord = (sortedWordTimes, wordTimes, audioTime, currentTime) => {
+  const spans = findContiguousWordSpans(sortedWordTimes, wordTimes);
+  const currentlyPlayingSpanIndex = findSpanIndex(currentTime, spans);
+
+  let text = wordTimes.map((wordTime, wordTimeIndex) => {
+    const spanIndexOfWordTime = findSpanIndexOfWordTime(wordTimeIndex, spans);
+    if (currentlyPlayingSpanIndex === spanIndexOfWordTime &&
+      isBetween(audioTime, wordTime['start_time'], wordTime['end_time'])) {
+      return '<mark>' + wordTime['word'] + '</mark>';
+    }
     return wordTime['word'];
   }).join(' ');
+
   text = text.replace(/\n$/g, '\n\n');
+
+  // browser compatibility stuff
   if (isIE()) {
     // IE wraps whitespace differently in a div vs textarea, this fixes it
     text = text.replace(/ /g, ' <wbr>');
@@ -54,6 +67,7 @@ class AudioTextEditor extends React.Component {
       this.refs.backdrop.scrollLeft = this.state.scrollLeft;
     }
     const wordTimes = this.props.audioPlayer.wordTimes;
+    const sortedWordTimes = this.props.audioPlayer.sortedWordTimes;
     const text = wordTimes.map(wordTime => wordTime['word']).join(' ');
     return (
       <div>
@@ -70,7 +84,14 @@ class AudioTextEditor extends React.Component {
               className="highlights"
               style={highlightsStyle}
               ref="highlights"
-              dangerouslySetInnerHTML={{__html: highlightCurrentWord(wordTimes, this.props.audioPlayer.audioTime)}}
+              dangerouslySetInnerHTML={{
+                __html: highlightCurrentWord(
+                  sortedWordTimes,
+                  wordTimes,
+                  this.props.audioPlayer.audioTime,
+                  this.props.audioPlayer.currentTime,
+                )
+              }}
             ></div>
           </div>
           <textarea

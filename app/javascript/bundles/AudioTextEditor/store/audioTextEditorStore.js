@@ -9,6 +9,8 @@ const middleware = [
 
 const configureStore = (railsProps) => {
   railsProps.audioPlayer.wordTimes = JSON.parse(railsProps.audioPlayer.wordTimes)
+  railsProps.audioPlayer.sortedWordTimes = JSON.parse(
+    railsProps.audioPlayer.sortedWordTimes)
   return createStore(
     audioTextEditorReducer,
     railsProps,

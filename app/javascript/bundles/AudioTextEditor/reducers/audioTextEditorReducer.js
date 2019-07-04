@@ -14,6 +14,7 @@ import {
   EDIT_GAP_TIMES,
 } from '../constants/audioTextEditorConstants';
 import { isBetween } from '../utils';
+import { calculateCurrentTime } from '../utils/audioTimeManager';
 
 const insertWordTimesAtCharIndex = (pasteIndex, wordTimes, wordTimesToInsert) => {
   // This is an invalid action if the paste position is not at a word boundary
@@ -87,7 +88,9 @@ const audioPlayer = (
     title: '',
     audioSrc: null,
     wordTimes: [],
-    audioTime: 0,
+    sortedWordTimes: [],
+    audioTime: 0, // Audio time tracks where the play head currently is.
+    currentTime: 0, // Current time is monotomically increasing, regardless of edits.
     html: '',
     wordTimesInClipboard: null,
   },
@@ -96,7 +99,18 @@ const audioPlayer = (
   switch (action.type) {
     case AUDIO_TIME_UPDATE:
       // We need to calculate if this time needs to jump.
-      return {...state, audioTime: action.audioTime};
+      const newCurrentTime = calculateCurrentTime(
+        state.sortedWordTimes,
+        state.wordTimes,
+        state.currentTime,
+        action.audioTime,
+      );
+      console.log(newCurrentTime);
+      return {
+        ...state,
+        audioTime: action.audioTime,
+        currentTime: newCurrentTime,
+      };
     case ON_DELETE_EDITABLE_HTML:
       return {
         ...state,

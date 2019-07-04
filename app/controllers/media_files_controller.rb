@@ -21,14 +21,15 @@ class MediaFilesController < ApplicationController
   end
 
   def show
+    original_transcription = @media_file.transcription
+    transcription = @media_file.transcription
     if @media_file.transcription_edits.any?
       transcription = @media_file.transcription_edits.last.transcription
-    else
-      transcription = @media_file.transcription
     end
     @audio_text_editor_props = {
       audioPlayer: {
         wordTimes: JSON.dump(transcription || []),
+        sortedWordTimes: JSON.dump(original_transcription || []),
         audioTime: 0,
         title: @media_file.title,
         audioSrc: @media_file.audio_file.url,

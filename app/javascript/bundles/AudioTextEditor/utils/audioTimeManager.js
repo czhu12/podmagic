@@ -22,16 +22,10 @@ const seekToWordId = (sortedWordTimes, wordId) => {
  * @param {Array[WordTime]} wordTimes
  * @return {Array[int]}
  */
-export const findIndexesThatNeedTimeChange = (wordTimes) => {
+export const findIndexesThatNeedTimeChange = (sortedWordTimes, wordTimes) => {
   /* Preprocess the words to figure out where we should make a time change.
   // Everything that is not monotonically increasing needs to be a word change
   */
-  const sortedWordTimes = uniqBy(wordTimes, 'word_id')
-    .map(wordTime => wordTime)
-    .sort((a, b) => {
-      return a['start_time'] - b['start_time'];
-    });
-
   let currentIndex = 0;
   let indexesThatNeedTimeChange = []
   while (currentIndex < wordTimes.length) {
@@ -65,8 +59,8 @@ const computeTimeOfSpan = (wordTimes, startIndex, endIndex) => {
  * @param {int} wordId
  * @return {int}
  */
-export const findContiguousWordSpans = (wordTimes) => {
-  const indexesThatNeedTimeChange = findIndexesThatNeedTimeChange(wordTimes);
+export const findContiguousWordSpans = (sortedWordTimes, wordTimes) => {
+  const indexesThatNeedTimeChange = findIndexesThatNeedTimeChange(sortedWordTimes, wordTimes);
   let spans = [{
     startIndex: 0,
     endIndex: indexesThatNeedTimeChange[0],
@@ -104,12 +98,34 @@ export const findSpanIndex = (currentTime, spans) => {
   return -1;
 }
 
-export const spanIndexToPlay = (currentTime, wordTimes) => {
-  const spans = findContiguousWordSpans(wordTimes);
-  const expectedSpanIndex = calculateSpanIndex(currentTime, spans);
-  return expectedSpanIndex;
-}
-
 export const currentWordToHighlight = (currentTime, wordTimes) => {
   return null;
+}
+
+export const findSpanIndexOfWordTime = (wordTimeIndex, spans) => {
+  for (let i = 0; i < spans.length; i++) {
+    const span = spans[i];
+    if (wordTimeIndex >= span['startIndex'] && wordTimeIndex <= span['endIndex']) {
+      return i;
+    }
+  }
+  throw new `${wordTimeIndex} word index exceeds spans.`
+}
+
+export const calculateCurrentTime = (sortedWordTimes, wordTimes, currentTime, audioTime) => {
+  const spans = findContiguousWordSpans(sortedWordTimes, wordTimes);
+  // All finished spans total time + audioTime - currentSpanStartTime
+  const spanIndex = findSpanIndex(currentTime, spans);
+  let totalTimeSum = 0.0;
+  // sum up total times for all spans up to spanIndex - 1
+  for (let i = 0; i < spanIndex - 1; i++) {
+    totalTimeSum += spans[i]['totalTime'];
+  }
+
+  if (spanIndex >= 0) {
+    console.log(totalTimeSum, audioTime, spans[spanIndex]['startTime']);
+    return totalTimeSum + audioTime - spans[spanIndex]['startTime'];
+  } else {
+    return audioTime;
+  }
 }
