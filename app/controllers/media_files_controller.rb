@@ -33,6 +33,9 @@ class MediaFilesController < ApplicationController
         audioTime: 0,
         title: @media_file.title,
         audioSrc: @media_file.audio_file.url,
+        audioTime: 0,
+        currentTime: 0,
+        currentSpanIndex: 0,
         id: @media_file.id,
       }
     }

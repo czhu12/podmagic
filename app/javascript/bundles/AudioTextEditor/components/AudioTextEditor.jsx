@@ -5,12 +5,16 @@ import ContentEditable from 'react-contenteditable'
 
 import AudioControls from './AudioControls'
 import AudioPlayer from './AudioPlayer'
-import { isIE, isIOS, isBetween } from '../utils';
+import { isIE, isIOS } from '../utils';
 import {
   findContiguousWordSpans,
   findSpanIndex,
   findSpanIndexOfWordTime,
 } from '../utils/audioTimeManager';
+
+export const isBetween = (current, start, end) => {
+  return current > start && current <= end;
+}
 
 const highlightCurrentWord = (sortedWordTimes, wordTimes, audioTime, currentTime) => {
   const spans = findContiguousWordSpans(sortedWordTimes, wordTimes);

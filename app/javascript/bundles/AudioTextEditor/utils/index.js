@@ -1,5 +1,5 @@
 export const isBetween = (current, start, end) => {
-  return current > start && current <= end;
+  return current >= start && current <= end;
 }
 export const getUserAgent = () => {
   const ua = window.navigator.userAgent.toLowerCase();

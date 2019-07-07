@@ -41,6 +41,9 @@ describe AudioTranscriptionWorker do
     expect(padded_transcription[0][:start_padding]).to eq(0.5)
     expect(padded_transcription[-1][:end_padding]).to eq(4.1)
 
+    expect(padded_transcription[1][:end_padding]).to eq(3.3)
+    expect(padded_transcription[3][:end_padding]).to be_within(0.001).of(3.85)
+
     expect(padded_transcription[0][:end_padding]).to eq(0.7 + AudioTranscriptionWorker::MAX_PADDING)
     expect(padded_transcription[2][:end_padding]).to eq(3.5)
   end

@@ -149,3 +149,26 @@ test('Gets current span index', () => {
   expect(findSpanIndex(2.0, spans)).toEqual(0);
   expect(findSpanIndex(5.0, spans)).toEqual(2);
 });
+
+const span1 = {
+  totalTime: 3,
+  startIndex: 0,
+  endIndex: 2,
+  startTime: 0,
+  endTime: 3,
+}
+
+const span2 = {
+  totalTime: 15.9,
+  startIndex: 3,
+  endIndex: 33,
+  startTime: 3.8,
+  endTime: 19.7,
+}
+
+test.only('Handles the above case correctly', () => {
+  // This was a bug found in testing.
+  const currentTime = 1.692541;
+  const spans = [span1, span2];
+  expect(findSpanIndex(currentTime, spans)).toEqual(0);
+});

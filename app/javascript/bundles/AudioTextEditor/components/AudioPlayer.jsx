@@ -12,7 +12,7 @@ class AudioPlayer extends React.Component {
 
   render() {
     return (
-      <audio preload='none'>
+      <audio preload='none' id='audio-player'>
         <source src={this.props.source} type='audio/mpeg' />
       </audio>
     );

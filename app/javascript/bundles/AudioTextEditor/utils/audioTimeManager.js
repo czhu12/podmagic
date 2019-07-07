@@ -61,11 +61,20 @@ const computeTimeOfSpan = (wordTimes, startIndex, endIndex) => {
  */
 export const findContiguousWordSpans = (sortedWordTimes, wordTimes) => {
   const indexesThatNeedTimeChange = findIndexesThatNeedTimeChange(sortedWordTimes, wordTimes);
+  let startTime = null;
+  if (wordTimes[0]['word_id'] === 0) {
+    // If we are in the first original span, then the start time should be 0;
+    startTime = 0;
+  } else {
+    startTime = wordTimes[0]['start_padding'];
+  }
+
   let spans = [{
     startIndex: 0,
     endIndex: indexesThatNeedTimeChange[0],
-    startTime: wordTimes[0]['start_padding'],
+    startTime: startTime,
     endTime: wordTimes[indexesThatNeedTimeChange[0]]['end_padding'],
+    totalTime: wordTimes[indexesThatNeedTimeChange[0]]['end_padding'] - startTime,
   }];
 
   for (let i = 0; i < indexesThatNeedTimeChange.length - 1; i++) {
@@ -74,6 +83,7 @@ export const findContiguousWordSpans = (sortedWordTimes, wordTimes) => {
       endIndex: indexesThatNeedTimeChange[i+1],
       startTime: wordTimes[indexesThatNeedTimeChange[i] + 1]['start_padding'],
       endTime: wordTimes[indexesThatNeedTimeChange[i + 1]]['end_padding'],
+      totalTime: wordTimes[indexesThatNeedTimeChange[i + 1]]['end_padding'] - wordTimes[indexesThatNeedTimeChange[i] + 1]['start_padding']
     });
   }
 
@@ -118,14 +128,26 @@ export const calculateCurrentTime = (sortedWordTimes, wordTimes, currentTime, au
   const spanIndex = findSpanIndex(currentTime, spans);
   let totalTimeSum = 0.0;
   // sum up total times for all spans up to spanIndex - 1
-  for (let i = 0; i < spanIndex - 1; i++) {
+  for (let i = 0; i < spanIndex; i++) {
     totalTimeSum += spans[i]['totalTime'];
   }
 
-  if (spanIndex >= 0) {
-    console.log(totalTimeSum, audioTime, spans[spanIndex]['startTime']);
-    return totalTimeSum + audioTime - spans[spanIndex]['startTime'];
+  let newCurrentTime = null;
+  if (spanIndex === 0 && wordTimes[0]['word_id'] === 0) {
+    // We are playing the first span and its the original first span.
+    newCurrentTime = audioTime;
   } else {
-    return audioTime;
+    console.log(`
+      currentTime: ${currentTime}
+      totalTimeSum: ${totalTimeSum}
+      audioTime: ${audioTime}
+      startTime: ${spans[spanIndex]['startTime']}
+      spanIndex: ${spanIndex}
+  `);
+    newCurrentTime = totalTimeSum + audioTime - spans[spanIndex]['startTime'] + 0.0001; // the 0.0001 is to prevent this .99999 number representation bug
   }
+  if (newCurrentTime < currentTime) {
+    console.error('newCurrentTime went backwards!')
+  }
+  return newCurrentTime;
 }

@@ -14,7 +14,11 @@ import {
   EDIT_GAP_TIMES,
 } from '../constants/audioTextEditorConstants';
 import { isBetween } from '../utils';
-import { calculateCurrentTime } from '../utils/audioTimeManager';
+import {
+  calculateCurrentTime,
+  findContiguousWordSpans,
+  findSpanIndex,
+} from '../utils/audioTimeManager';
 
 const insertWordTimesAtCharIndex = (pasteIndex, wordTimes, wordTimesToInsert) => {
   // This is an invalid action if the paste position is not at a word boundary
@@ -93,6 +97,7 @@ const audioPlayer = (
     currentTime: 0, // Current time is monotomically increasing, regardless of edits.
     html: '',
     wordTimesInClipboard: null,
+    currentSpanIndex: 0,
   },
   action,
 ) => {
@@ -105,11 +110,25 @@ const audioPlayer = (
         state.currentTime,
         action.audioTime,
       );
+
       console.log(newCurrentTime);
+      const spans = findContiguousWordSpans(
+        state.sortedWordTimes, state.wordTimes);
+      console.log(spans);
+      const spanIndex = findSpanIndex(newCurrentTime, spans);
+      if (spanIndex !== -1 &&
+        spanIndex !== state.currentSpanIndex &&
+        spanIndex > state.currentSpanIndex
+      ) {
+        //console.log(`Setting to ${spans[spanIndex]['startTime']}`);
+        console.log(`span index: ${spanIndex} currentSpanIndex: ${state.currentSpanIndex} startTime: ${spans[spanIndex]['startTime']}`);
+        document.getElementById("audio-player").currentTime = spans[spanIndex]['startTime'];
+      }
       return {
         ...state,
         audioTime: action.audioTime,
         currentTime: newCurrentTime,
+        currentSpanIndex: spanIndex,
       };
     case ON_DELETE_EDITABLE_HTML:
       return {

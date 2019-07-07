@@ -51,16 +51,16 @@ class AudioTranscriptionWorker
   end
 
   def add_word_padding(transcription)
+    transcription = transcription.map { |w| w.deep_symbolize_keys }
     transcription.each_with_index do |word_info, idx|
-      break if idx == transcription.size - 1
       next if idx == 0
 
       prev = idx - 1
       prev_word_info = transcription[prev]
       difference = word_info[:start_time] - prev_word_info[:end_time]
       padding = [difference / 2, MAX_PADDING].min
-      prev_word_info[:end_padding] = prev_word_info[:end_time] + padding
       word_info[:start_padding] = word_info[:start_time] - padding
+      prev_word_info[:end_padding] = prev_word_info[:end_time] + padding
     end
 
     transcription[0][:start_padding] = transcription[0][:start_time]
