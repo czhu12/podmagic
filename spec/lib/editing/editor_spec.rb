@@ -1,4 +1,6 @@
 require 'rails_helper'
+class MockFFMPEGMovie
+end
 describe Editing::Editor do
 
   let(:word0) {
@@ -68,9 +70,10 @@ describe Editing::Editor do
   }
 
   let(:spans) { [span1, span2] }
+  let(:editor) { described_class.new }
+  let(:audio) { MockFFMPEGMovie.new }
 
   it "correctly calls javascript findContiguousWordSpans" do
-    editor = described_class.new
     response = editor.time_spans(sorted_word_times, sorted_word_times)
     expect(response).to eq([{
       startIndex: 0,
@@ -81,5 +84,26 @@ describe Editing::Editor do
     }])
   end
 
-  it 'calls the editing APIs correctly'
+  it 'calls the editing APIs correctly' do
+    expect(editor).to receive(:save_span_file).with(
+      audio,
+      '/tmp/output-span-0.flac',
+      '00:00:0.0',
+      '00:00:3.0',
+    )
+    expect(editor).to receive(:save_span_file).with(
+      audio,
+      '/tmp/output-span-1.flac',
+      '00:00:3.8',
+      '00:00:15.9',
+    )
+    expect(editor).to receive(:join_files_together).with(
+      [
+        '/tmp/output-span-0.flac',
+        '/tmp/output-span-1.flac',
+      ],
+      '/tmp/output.flac',
+    )
+    editor.edit_audio(audio, '/tmp/output.flac', spans)
+  end
 end
