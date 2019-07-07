@@ -335,6 +335,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-google-storage
   coffee-rails (~> 4.2)
+  execjs
   google-cloud-speech
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)

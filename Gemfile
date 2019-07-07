@@ -25,6 +25,7 @@ gem 'google-cloud-speech'
 gem 'aws-sdk-s3', '~>1', require: false
 gem 'carrierwave'
 gem 'carrierwave-google-storage'
+gem 'execjs'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
