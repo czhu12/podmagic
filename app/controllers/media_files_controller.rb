@@ -1,6 +1,6 @@
 class MediaFilesController < ApplicationController
   before_action :authenticate
-  before_action :set_media_file, only: [:show, :edit, :update, :destroy]
+  before_action :set_media_file, only: [:show, :edit, :update, :destroy, :download]
 
   def create
     media_file = MediaFile.new(params.require(:media_file).permit(:title))
@@ -46,6 +46,19 @@ class MediaFilesController < ApplicationController
       flash[:notice] = "Deleted #{@media_file.title}"
       redirect_to root_url
     end
+  end
+
+  def download
+    url = @media_file.audio_file.url
+    word_times = @media_file.final_word_times
+    sorted_word_times = @media_file.transcription
+    editor = Editing::Editor.new
+    spans = editor.time_spans(sorted_word_times, word_times)
+    input_audio_file = "public#{url}"
+    output_path = "/tmp/output.flac"
+    editor.edit(input_audio_file, output_path, spans)
+    # TODO: edit this file according to latests transcription updates.
+    send_file(output_path)
   end
 
   private

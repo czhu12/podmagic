@@ -43,8 +43,9 @@ class Editing::Editor
   def join_files_together(span_files, output_path)
     # Join the spans back together.
     # https://superuser.com/questions/587511/concatenate-multiple-wav-files-using-single-command-without-extra-file
-    file_params = (['-i'] * span_files.size).zip(files).flatten
-    `ffmpeg #{file_params} -filter_complex '[0:0][1:0][2:0][3:0]concat=n=#{files.size}:v=0:a=1[out]' -map '[out]' #{output_path}`
+    file_params = (['-i'] * span_files.size).zip(span_files).flatten.join(' ')
+    result = `ffmpeg #{file_params} -filter_complex '[0:0][1:0][2:0][3:0]concat=n=#{span_files.size}:v=0:a=1[out]' -map '[out]' -y #{output_path}`
+    Rails.logger.debug(result)
     status = $?.to_i
     return status == 0
   end

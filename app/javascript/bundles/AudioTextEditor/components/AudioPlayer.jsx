@@ -21,10 +21,10 @@ class AudioPlayer extends React.Component {
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this);
 
+    //node.addEventListener('timeupdate', this.handleTimeUpdate);
     node.addEventListener('progress', this.handleProgress);
-    node.addEventListener('timeupdate', this.handleTimeUpdate);
     node.addEventListener('ended', this.handleMediaEnd);
-
+    setInterval(this.handleTimeUpdate, 50);
     this.updateIsPlaying();
   }
 
@@ -45,8 +45,8 @@ class AudioPlayer extends React.Component {
   componentWillUnmount() {
     const node = ReactDOM.findDOMNode(this);
 
+    //node.removeEventListener('timeupdate', this.handleTimeUpdate);
     node.removeEventListener('progress', this.handleProgress);
-    node.removeEventListener('timeupdate', this.handleTimeUpdate);
     node.removeEventListener('ended', this.handleMediaEnd);
   }
 

@@ -125,13 +125,6 @@ const calculateCurrentTime = (sortedWordTimes, wordTimes, currentTime, audioTime
     // We are playing the first span and its the original first span.
     newCurrentTime = audioTime;
   } else {
-    console.log(`
-      currentTime: ${currentTime}
-      totalTimeSum: ${totalTimeSum}
-      audioTime: ${audioTime}
-      startTime: ${spans[spanIndex]['startTime']}
-      spanIndex: ${spanIndex}
-  `);
     newCurrentTime = totalTimeSum + audioTime - spans[spanIndex]['startTime'] + 0.0001; // the 0.0001 is to prevent this .99999 number representation bug
   }
   if (newCurrentTime < currentTime) {

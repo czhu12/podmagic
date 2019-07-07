@@ -46,12 +46,24 @@ class AudioControls extends React.Component {
         </a>
       )
     }
+
+    const downloadButtonView = (
+      <a className="button is-pulled-right" onClick={this.props.audioControlActions.downloadEdits}>
+        <div>
+          <span className="icon is-small">
+            <i className="fas fa-download"/>
+          </span>
+          <span>Download</span>
+        </div>
+      </a>
+    );
     return (
       <div className="m-t-sm">
         <a className="button" onClick={this.props.audioControlActions.togglePlay}>
           {playPauseView}
         </a>
         {savingButtonView}
+        {downloadButtonView}
       </div>
     );
   }

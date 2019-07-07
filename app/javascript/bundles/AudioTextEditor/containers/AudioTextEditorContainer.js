@@ -43,6 +43,9 @@ const mapDispatchToProps = (dispatch) => ({
     saveEdits: () => {
       dispatch(actions.saveEdits());
     },
+    downloadEdits: () => {
+      dispatch(actions.downloadEdits());
+    },
   },
   audioPlayerActions: {
     onTimeUpdate: ({ currentTime, trackDuration }) => {

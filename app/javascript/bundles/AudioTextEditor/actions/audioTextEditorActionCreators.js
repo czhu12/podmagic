@@ -73,3 +73,10 @@ export const saveEdits = () => {
     });
   }
 }
+
+export const downloadEdits = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    window.open(`/media_files/${state.audioPlayer.id}/download`, '_blank');
+  }
+}
