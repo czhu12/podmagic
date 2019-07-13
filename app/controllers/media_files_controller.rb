@@ -55,7 +55,8 @@ class MediaFilesController < ApplicationController
     editor = Editing::Editor.new
     spans = editor.time_spans(sorted_word_times, word_times)
     input_audio_file = "public#{url}"
-    output_path = "/tmp/output.flac"
+    basename_without_extension = File.basename(url, ".*")
+    output_path = "/tmp/#{basename_without_extension}.flac"
     editor.edit(input_audio_file, output_path, spans)
     # TODO: edit this file according to latests transcription updates.
     send_file(output_path)
