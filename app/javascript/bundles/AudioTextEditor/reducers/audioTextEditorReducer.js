@@ -5,6 +5,7 @@ import {
   ON_COPY_EDITABLE_HTML,
   ON_PASTE_EDITABLE_HTML,
   ON_DELETE_EDITABLE_HTML,
+  ON_CLICK_AUDIO_TEXT_EDITOR,
   AUDIO_CONTROLS_TOGGLE_PLAY,
   AUDIO_CONTROLS_SAVE,
 
@@ -160,6 +161,9 @@ const audioPlayer = (
         state.wordTimesInClipboard,
       )
       return {...state, wordTimes};
+    case ON_CLICK_AUDIO_TEXT_EDITOR:
+      //document.getElementById("audio-player").currentTime = spans[spanIndex]['startTime'];
+      return state;
     default:
       return state;
   }

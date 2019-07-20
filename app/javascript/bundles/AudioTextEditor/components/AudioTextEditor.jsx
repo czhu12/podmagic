@@ -4,6 +4,7 @@ import React from 'react';
 import ContentEditable from 'react-contenteditable'
 
 import AudioControls from './AudioControls'
+import PlayHeadCursor from './PlayHeadCursor'
 import AudioPlayer from './AudioPlayer'
 import { isIE, isIOS } from '../utils';
 import {
@@ -70,6 +71,7 @@ class AudioTextEditor extends React.Component {
       this.refs.backdrop.scrollTop = this.state.scrollTop;
       this.refs.backdrop.scrollLeft = this.state.scrollLeft;
     }
+
     const wordTimes = this.props.audioPlayer.wordTimes;
     const sortedWordTimes = this.props.audioPlayer.sortedWordTimes;
     const text = wordTimes.map(wordTime => wordTime['word']).join(' ');
@@ -106,13 +108,16 @@ class AudioTextEditor extends React.Component {
             onCut={this.props.onCutAudioTextEditor}
             onCopy={this.props.onCopyAudioTextEditor}
             onPaste={this.props.onPasteAudioTextEditor}
-            value={text}/>
+            value={text}
+            onClick={this.props.onClickAudioTextEditor}
+          />
         </div>
+        <PlayHeadCursor audioPlayer={this.props.audioPlayer} />
       
-      <AudioControls
-        audioControls={this.props.audioControls}
-        audioControlActions={this.props.audioControlActions}
-      />
+        <AudioControls
+          audioControls={this.props.audioControls}
+          audioControlActions={this.props.audioControlActions}
+        />
       </div>
     );
   }

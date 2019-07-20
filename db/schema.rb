@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_15_032707) do
+ActiveRecord::Schema.define(version: 2019_07_15_080738) do
 
   create_table "media_files", force: :cascade do |t|
     t.integer "user_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_06_15_032707) do
     t.json "transcription"
     t.integer "duration", default: 0
     t.string "audio_file"
+    t.boolean "transcribed", default: false
   end
 
   create_table "transcription_edits", force: :cascade do |t|

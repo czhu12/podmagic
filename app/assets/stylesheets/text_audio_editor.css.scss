@@ -7,9 +7,14 @@
 html, body {
   height: 100%;
 }
+
 body {
   margin: 30px;
   background-color: #f0f0f0;
+}
+
+.clear {
+  clear: left;
 }
 
 .audio-container, .backdrop, #audio-editor-textarea {
@@ -80,3 +85,13 @@ mark {
   user-select: none;
 }
 
+#playhead {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  height: 10px;
+}
+
+.align-right {
+  text-align: right;
+}

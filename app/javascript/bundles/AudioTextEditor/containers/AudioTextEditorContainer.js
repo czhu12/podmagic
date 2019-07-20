@@ -33,6 +33,10 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(actions.onDeleteAudioTextEditor(startIndex, endIndex))
     }
   },
+  onClickAudioTextEditor: (e) => {
+    let index = document.getElementById("audio-editor-textarea").selectionStart;
+    dispatch(actions.onClickAudioTextEditor(index))
+  },
   updateAudioTime: ({currentTime, trackDuration}) => {
     dispatch(actions.updateAudioTime(currentTime));
   },

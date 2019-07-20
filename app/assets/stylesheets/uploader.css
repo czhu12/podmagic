@@ -1,0 +1,79 @@
+.dropzone {
+  height: 128px;
+  width: 128px;
+  background-color: #fff;
+  border: 2px dashed rgb(187, 186, 186);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+  margin: 0 auto;
+}
+
+.upload .content {
+  margin: 0 auto;
+}
+
+.upload .actions {
+  width: 100%;
+}
+
+.upload .actions button {
+  width: 100%;
+}
+
+.highlight {
+  background-color: rgb(188, 185, 236);
+}
+
+.Icon {
+  opacity: 0.3;
+  height: 64px;
+  width: 64px;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  text-align: left;
+  overflow: hidden;
+}
+
+button {
+  font-family: "Roboto medium", sans-serif;
+  font-size: 14px;
+  display: inline-block;
+  height: 36px;
+  min-width: 88px;
+  padding: 6px 16px;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 0;
+  border-radius: 2px;
+  background: rgba(103, 58, 183, 1);
+  color: #fff;
+  outline: 0;
+}
+
+button:disabled {
+  background: rgb(189, 189, 189);
+  cursor: default;
+}
+

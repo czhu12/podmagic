@@ -133,5 +133,12 @@ const calculateCurrentTime = (sortedWordTimes, wordTimes, currentTime, audioTime
   return newCurrentTime;
 }
 
+export const calculateTotalTime = (spans) => {
+  let totalTime = 0;
+  spans.forEach(span => {
+    totalTime += span['totalTime'];
+  });
+  return totalTime;
+}
 // ==========
 export { findSpanIndex, calculateCurrentTime, findSpanIndexOfWordTime, findContiguousWordSpans, findIndexesThatNeedTimeChange }

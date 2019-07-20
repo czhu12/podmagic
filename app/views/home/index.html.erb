@@ -7,7 +7,7 @@
         <% if media_file.new_record? %>
           <div class='card-content'>
           <%= form_with model: media_file, local: true do |form| %>
-            <%= form.text_field :title, placeholder: 'Title', class: 'input' %><br>
+            <%= form.text_field :title, placeholder: 'My Awesome Podcast', class: 'input', autocomplete: 'off' %><br>
 
             <%= form.file_field :audio_file, multiple: true %><br>
             <%= form.submit 'Upload', class: 'button' %>
@@ -22,7 +22,7 @@
               <%= readable_time_from_seconds 0 %> / <%= readable_time_from_seconds media_file.duration %>
             </div>
             <div>
-              <audio controls src="/media/examples/t-rex-roar.mp3">
+              <audio controls src="<%= media_file.audio_file.url %>">
                 Your browser does not support the <code>audio</code> element.
               </audio>
 

@@ -12,9 +12,7 @@ class MediaFilesController < ApplicationController
       AudioTranscriptionWorker.perform_async(media_file_id: media_file.id)
       redirect_to media_file
     else
-      media_file.errors.each do |err|
-        puts err
-      end
+      puts media_file.errors.inspect
       flash[:notice] = "Media file save failed."
       redirect_to root_url
     end
@@ -33,7 +31,6 @@ class MediaFilesController < ApplicationController
         audioTime: 0,
         title: @media_file.title,
         audioSrc: @media_file.audio_file.url,
-        audioTime: 0,
         currentTime: 0,
         currentSpanIndex: 0,
         id: @media_file.id,

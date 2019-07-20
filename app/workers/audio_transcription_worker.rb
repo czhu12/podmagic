@@ -13,14 +13,10 @@ class AudioTranscriptionWorker
 
   def google_api(media_file)
     speech_client = Google::Cloud::Speech.new
-    file_path = File.join('public', media_file.audio_file.url)
-
-    # Loads the audio into memory
-    audio = nil
-    File.open(file_path, 'rb') do |io|
-      content = io.read
-      audio = Google::Cloud::Speech::V1::RecognitionAudio.new(content: content)
-    end
+    url = URI.parse(media_file.audio_file.url)
+    uri = "gs:/#{url.path}"
+    Rails.logger.debug("Transcribing #{uri}")
+    audio = {'uri': uri}
 
     config = Google::Cloud::Speech::V1::RecognitionConfig.new(
         encoding: Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding::FLAC,
@@ -71,6 +67,6 @@ class AudioTranscriptionWorker
   def transcribe(media_file)
     transcription = google_api(media_file)
     transcription = add_word_padding(transcription)
-    media_file.update(transcription: transcription)
+    media_file.update(transcription: transcription, transcribed: true)
   end
 end

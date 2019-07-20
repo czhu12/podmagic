@@ -6,6 +6,7 @@ import {
   ON_COPY_EDITABLE_HTML,
   ON_PASTE_EDITABLE_HTML,
   ON_DELETE_EDITABLE_HTML,
+  ON_CLICK_AUDIO_TEXT_EDITOR,
   AUDIO_CONTROLS_TOGGLE_PLAY,
   AUDIO_CONTROLS_SAVE,
 
@@ -29,6 +30,11 @@ export const onCopyAudioTextEditor = (startIndex, endIndex) => ({
 export const onPasteAudioTextEditor = (index) => ({
   index,
   type: ON_PASTE_EDITABLE_HTML,
+});
+
+export const onClickAudioTextEditor = (index) => ({
+  index,
+  type: ON_CLICK_AUDIO_TEXT_EDITOR,
 });
 
 export const onDeleteAudioTextEditor = (startIndex, endIndex) => ({
