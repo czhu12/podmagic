@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 
 class ProgressBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
+    const className = "progress " + this.props.className;
     return (
       <progress
-        className="progress is-primary"
+        className={className}
         value={this.props.progress}
+        style={this.props.style}
         max="100"
-        >
-          {this.props.progress + "%"}
+      >
+        {this.props.progress + "%"}
       </progress>
     );
   }

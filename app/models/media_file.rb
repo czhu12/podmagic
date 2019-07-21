@@ -11,4 +11,8 @@ class MediaFile < ApplicationRecord
       return transcription_edits.last.transcription
     end
   end
+
+  def uploaded
+    not audio_file_url.nil?
+  end
 end

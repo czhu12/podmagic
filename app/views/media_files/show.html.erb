@@ -1,4 +1,13 @@
 <div class="container">
-  <h1 class="title is-4"><%= @media_file.title %></h1>
-  <%= react_component("AudioTextEditorApp", props: @audio_text_editor_props, prerender: false) %>
+  <nav class="breadcrumb m-t-md" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li class="is-active"><a href="#" aria-current="page"><%= @media_file.title %></a></li>
+    </ul>
+  </nav>
+  <% if @media_file.transcribed %>
+    <%= react_component("AudioTextEditorApp", props: @audio_text_editor_props, prerender: false) %>
+  <% else %>
+    <%= react_component("AudioUploaderApp", props: { mediaFile: @media_file }, prerender: false) %>
+  <% end %>
 </div>

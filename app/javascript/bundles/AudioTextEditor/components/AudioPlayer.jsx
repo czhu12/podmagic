@@ -24,7 +24,7 @@ class AudioPlayer extends React.Component {
     //node.addEventListener('timeupdate', this.handleTimeUpdate);
     node.addEventListener('progress', this.handleProgress);
     node.addEventListener('ended', this.handleMediaEnd);
-    setInterval(this.handleTimeUpdate, 50);
+    this.timerID = setInterval(this.handleTimeUpdate, 50);
     this.updateIsPlaying();
   }
 
@@ -48,6 +48,7 @@ class AudioPlayer extends React.Component {
     //node.removeEventListener('timeupdate', this.handleTimeUpdate);
     node.removeEventListener('progress', this.handleProgress);
     node.removeEventListener('ended', this.handleMediaEnd);
+    clearInterval(this.timerID);
   }
 
   handleTimeUpdate() {
